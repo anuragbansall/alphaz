@@ -30,7 +30,7 @@ function App() {
 
       isPlayingRef.current = true;
 
-      const audio = new Audio(`/public/sounds/${key}.mp3`);
+      const audio = new Audio(`../public/sounds/${key}.mp3`);
 
       audio.play().catch((error) => {
         console.error(`Error playing sound for ${key}:`, error);
@@ -40,7 +40,7 @@ function App() {
       audio.onended = () => {
         isPlayingRef.current = false;
         if (suggestedLetter === letters.length - 1) {
-          const audioWin = new Audio(`public/sounds/crowd-cheering.mp3`);
+          const audioWin = new Audio(`../public/sounds/crowd-cheering.mp3`);
           audioWin.play().catch((error) => {
             console.error(`Error playing winning sound:`, error);
           });
