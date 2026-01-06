@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import generateColor from "./utils/generateColor";
 import Confetti from "react-confetti";
 
-const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+const letters = "abcdefghijklmnopqrstuvwxyz0123456789".split("");
 
 function App() {
   const [suggestedLetter, setSuggestedLetter] = useState(0);
@@ -22,13 +22,15 @@ function App() {
       if (isPlayingRef.current || isGameWon) return;
 
       const key = event.key.toLowerCase();
-      if (key.length !== 1 || !/[a-z]/.test(key)) return;
+      console.log("Pressed key:", key);
+
+      if (key.length !== 1 || !/[a-z0-9]/.test(key)) return;
 
       if (key !== letters[suggestedLetter]) return;
 
       isPlayingRef.current = true;
 
-      const audio = new Audio(`/sounds/${key}.mp3`);
+      const audio = new Audio(`/public/sounds/${key}.mp3`);
 
       audio.play().catch((error) => {
         console.error(`Error playing sound for ${key}:`, error);
@@ -81,9 +83,9 @@ function App() {
         {isGameWon && (
           <button
             onClick={resetGame}
-            className="ml-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors"
+            className="ml-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors cursor-pointer text-white text-2xl font-bold hover:scale-105 transform"
           >
-            Reset
+            Play Again!
           </button>
         )}
       </div>
