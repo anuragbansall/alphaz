@@ -9,6 +9,12 @@ function App() {
   const [isGameWon, setIsGameWon] = useState(false);
   const [color, setColor] = useState(generateColor());
 
+  const resetGame = () => {
+    setSuggestedLetter(0);
+    setIsGameWon(false);
+    setColor(generateColor());
+  };
+
   const isPlayingRef = useRef(false);
 
   useEffect(() => {
@@ -60,15 +66,26 @@ function App() {
         <Confetti width={window.innerWidth} height={window.innerHeight} />
       )}
 
-      <div className="w-full h-full bg-black/20 backdrop-blur-sm flex justify-center items-center">
-        <span
-          className="text-9xl uppercase font-bold"
-          style={{
-            color,
-          }}
-        >
-          {letters[suggestedLetter]}
-        </span>
+      <div className="w-full h-full bg-black/20 backdrop-blur-sm flex flex-col gap-4 justify-center items-center">
+        {!isGameWon && (
+          <span
+            className="text-9xl uppercase font-bold"
+            style={{
+              color,
+            }}
+          >
+            {letters[suggestedLetter]}
+          </span>
+        )}
+
+        {isGameWon && (
+          <button
+            onClick={resetGame}
+            className="ml-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors"
+          >
+            Reset
+          </button>
+        )}
       </div>
     </main>
   );
